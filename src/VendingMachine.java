@@ -50,7 +50,7 @@ import java.util.Scanner; //Import the Scanner Class
 public class VendingMachine {
     public static void main(String[] args) throws Exception {
         int itemTotal;
-        int intBuffer, x, y;
+        int intBuffer;
 
         float costTotal;
 
@@ -103,12 +103,24 @@ public class VendingMachine {
          * }
          */
         ///// BUYING SESSION
+        session = true;
+        while (session) {
+            // Printing initial welcome
+            System.out.printf("| %-4s| %-31s| %-31s| %-31s|%n", "Row", "Column 1", "Column 2", "Column 3");
+            System.out.println(
+                    "----------------------------------------------------------------------------------------------------------");
 
-        for (Popcorn[] row : catalog) {
-            for (Popcorn column : row) {
-                System.out.printf("| %-23s %5.2f (%-1d)", column.name, column.cost, column.stock);
+            intBuffer = 1;
+
+            for (Popcorn[] row : catalog) {
+                System.out.printf("| %-4s", intBuffer);
+                for (Popcorn column : row) {
+                    System.out.printf("| %-21s %5.2f (%-1d)", column.name, column.cost, column.stock);
+                }
+                System.out.print("|\n");
+                intBuffer++;
             }
-            System.out.print("|\n");
+            session = false;
         }
         scnr.close();
 
