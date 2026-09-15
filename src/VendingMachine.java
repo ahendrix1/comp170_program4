@@ -1,3 +1,4 @@
+
 /**
  * Garrett's popcorn vending machine
 
@@ -32,11 +33,37 @@ The .gif below show three iterations of running the program
  */
 
 import java.util.Scanner; //Import the Scanner Class
+
 public class VendingMachine {
     public static void main(String[] args) throws Exception {
-     
+        int itemTotal;
+        float costTotal;
 
+        Scanner scnr = new Scanner(System.in);
 
-    }//END OF MAIN
+        /*
+         * PLAN: each popcorn is a obj. name, cost, stock 3tuple. multidimensional array
+         * of
+         * row/col indicies. similar architecture to last assignment (session while
+         * loop, check for if
+         * admin session).
+         * popcorn class with newCorn method, purchase method, restock method,
+         */
+
+    }
+
+    class Popcorn {
+        String name;
+        float cost;
+        int stock;
+
+        public Popcorn(String name, float cost, int stock) {
+            this.name = name;
+            this.cost = cost;
+            this.stock = stock;
+
+        }
+
+    }
 
 }
