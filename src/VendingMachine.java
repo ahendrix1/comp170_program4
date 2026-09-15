@@ -32,12 +32,30 @@ The .gif below show three iterations of running the program
 
  */
 
+/*
+* PLAN: each popcorn is a obj. name, cost, stock 3tuple. multidimensional array
+* of
+* row/col indicies. similar architecture to last assignment (session while
+* loop, check for if
+* admin session).
+* popcorn class with newCorn method, purchase method, restock method,
+*
+*
+* Plan for table: String[][], x,y. fill static slots, then add popcorn. box
+* drawing seperate
+*/
+
 import java.util.Scanner; //Import the Scanner Class
 
 public class VendingMachine {
     public static void main(String[] args) throws Exception {
         int itemTotal;
+        int intBuffer;
+
         float costTotal;
+
+        boolean auth = false;
+        boolean session = false;
 
         Popcorn garrett = new Popcorn("Garrett Mix", 14.99);
         Popcorn caramel = new Popcorn("Caramel Crisp", 16.99);
@@ -53,16 +71,41 @@ public class VendingMachine {
 
         Scanner scnr = new Scanner(System.in);
 
-        System.out.println(catalog[0].name);
+        String stringBuffer;
+        String[][] table = new String[4][4];
 
-        /*
-         * PLAN: each popcorn is a obj. name, cost, stock 3tuple. multidimensional array
-         * of
-         * row/col indicies. similar architecture to last assignment (session while
-         * loop, check for if
-         * admin session).
-         * popcorn class with newCorn method, purchase method, restock method,
-         */
+        ///// LOGIN
+
+        System.out.println(
+                "Welcome to Garrett's Vending Machine!");
+        while (!session && !auth) {
+            System.out.println("Press 1 to make purchase, press 0 to enter admin mode.");
+            intBuffer = scnr.nextInt();
+
+            switch (intBuffer) {
+                case 0:
+                    System.out.println("Please enter password.");
+                    stringBuffer = scnr.next(); // doesn't actually validate anything, for fun
+                    if (stringBuffer != null) {
+                        auth = true;
+                    } else {
+                        System.out.println("Bad password.");
+                    }
+                    session = true;
+                    break;
+
+                case 1:
+                    session = true;
+                    break;
+
+                default:
+                    System.out.println("Sorry.");
+                    break;
+            }
+
+        }
+
+        ///// BUYING SESSION
 
         scnr.close();
 
