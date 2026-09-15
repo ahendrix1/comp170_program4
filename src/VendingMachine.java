@@ -39,7 +39,21 @@ public class VendingMachine {
         int itemTotal;
         float costTotal;
 
+        Popcorn garrett = new Popcorn("Garrett Mix", 14.99);
+        Popcorn caramel = new Popcorn("Caramel Crisp", 16.99);
+        Popcorn cheese = new Popcorn("Caramel Crisp", 16.99);
+        Popcorn pecan = new Popcorn("Pecan Caramel Crisp", 16.99);
+        Popcorn cashew = new Popcorn("Cashew Caramel Crisp", 16.99);
+        Popcorn almond = new Popcorn("Almond Caramel Crisp", 16.99);
+        Popcorn plain = new Popcorn("Plain", 16.99);
+        Popcorn buttery = new Popcorn("Buttery", 16.99);
+        Popcorn sweet = new Popcorn("Sweet", 16.99);
+
+        Popcorn[] catalog = { garrett, caramel, cheese, pecan, cashew, almond, plain, buttery, sweet };
+
         Scanner scnr = new Scanner(System.in);
+
+        System.out.println(catalog[0].name);
 
         /*
          * PLAN: each popcorn is a obj. name, cost, stock 3tuple. multidimensional array
@@ -50,20 +64,30 @@ public class VendingMachine {
          * popcorn class with newCorn method, purchase method, restock method,
          */
 
+        scnr.close();
+
     }
 
-    class Popcorn {
-        String name;
-        float cost;
-        int stock;
+}
 
-        public Popcorn(String name, float cost, int stock) {
-            this.name = name;
-            this.cost = cost;
-            this.stock = stock;
+class Popcorn {
+    String name;
+    double cost;
+    int stock;
 
-        }
+    public Popcorn(String name, double cost) {
+        this.name = name;
+        this.cost = cost;
+        this.stock = 5;
 
+    }
+
+    public void Purchase(int amount) {
+        this.stock = this.stock - amount;
+    }
+
+    public void Restock() {
+        this.stock = 5;
     }
 
 }
