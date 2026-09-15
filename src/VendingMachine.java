@@ -61,44 +61,15 @@ public class VendingMachine {
         Popcorn caramel = new Popcorn("Caramel Crisp", 16.99);
         Popcorn cheese = new Popcorn("Cheese Corn", 12.99);
         Popcorn pecan = new Popcorn("Pecan Caramel Crisp", 10.99);
-        Popcorn cashew = new Popcorn("Cashew Caramel Crisp", 9.99);
+        Popcorn cashew = new Popcorn("Cashew Caramel Crisp", 09.99);
         Popcorn almond = new Popcorn("Almond Caramel Crisp", 11.99);
-        Popcorn plain = new Popcorn("Plain", 6.99);
-        Popcorn buttery = new Popcorn("Buttery", 8.99);
-        Popcorn sweet = new Popcorn("Sweet", 7.99);
+        Popcorn plain = new Popcorn("Plain", 06.99);
+        Popcorn buttery = new Popcorn("Buttery", 08.99);
+        Popcorn sweet = new Popcorn("Sweet", 07.99);
 
-        Popcorn[] catalog = { garrett, caramel, cheese, pecan, cashew, almond, plain, buttery, sweet };
+        Popcorn[][] catalog = { { garrett, caramel, cheese }, { pecan, cashew, almond }, { plain, buttery, sweet } };
 
         Scanner scnr = new Scanner(System.in);
-
-        String stringBuffer = "";
-        String[][] table = new String[3][3];
-
-        // Array with easily grabable values, array with all the strings for easy
-        // looping
-        x = 0;
-        y = 0;
-
-        for (Popcorn item : catalog) {
-            stringBuffer = item.name;
-            stringBuffer = "|" + stringBuffer + " $" + item.cost + "(" + item.stock + ")";
-            table[x][y] = stringBuffer;
-            if (y < 2) {
-                y++;
-            } else {
-                y = 0;
-                x++;
-            }
-
-        }
-
-        for (String[] row : table) {
-            for (String column : row) {
-                System.out.print("%15s" column);
-
-            }
-            System.out.print("|\n");
-        }
 
         ///// LOGIN
         /*
@@ -133,6 +104,12 @@ public class VendingMachine {
          */
         ///// BUYING SESSION
 
+        for (Popcorn[] row : catalog) {
+            for (Popcorn column : row) {
+                System.out.printf("| %-23s %5.2f (%-1d)", column.name, column.cost, column.stock);
+            }
+            System.out.print("|\n");
+        }
         scnr.close();
 
     }
