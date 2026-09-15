@@ -50,7 +50,7 @@ import java.util.Scanner; //Import the Scanner Class
 public class VendingMachine {
     public static void main(String[] args) throws Exception {
         int itemTotal;
-        int intBuffer;
+        int intBuffer, x, y;
 
         float costTotal;
 
@@ -72,15 +72,18 @@ public class VendingMachine {
         Scanner scnr = new Scanner(System.in);
 
         String stringBuffer = "";
-        String[][] table = new String[4][4];
+        String[][] table = new String[3][3];
 
-        int x = 0;
-        int y = 0;
+        // Array with easily grabable values, array with all the strings for easy
+        // looping
+        x = 0;
+        y = 0;
+
         for (Popcorn item : catalog) {
             stringBuffer = item.name;
             stringBuffer = stringBuffer + " $" + item.cost;
             table[x][y] = stringBuffer;
-            if (y < 3) {
+            if (y < 2) {
                 y++;
             } else {
                 y = 0;
@@ -94,6 +97,7 @@ public class VendingMachine {
                 System.out.println(column);
 
             }
+
         ///// LOGIN
         /*
          * System.out.println(
