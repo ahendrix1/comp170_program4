@@ -59,52 +59,72 @@ public class VendingMachine {
 
         Popcorn garrett = new Popcorn("Garrett Mix", 14.99);
         Popcorn caramel = new Popcorn("Caramel Crisp", 16.99);
-        Popcorn cheese = new Popcorn("Caramel Crisp", 16.99);
-        Popcorn pecan = new Popcorn("Pecan Caramel Crisp", 16.99);
-        Popcorn cashew = new Popcorn("Cashew Caramel Crisp", 16.99);
-        Popcorn almond = new Popcorn("Almond Caramel Crisp", 16.99);
-        Popcorn plain = new Popcorn("Plain", 16.99);
-        Popcorn buttery = new Popcorn("Buttery", 16.99);
-        Popcorn sweet = new Popcorn("Sweet", 16.99);
+        Popcorn cheese = new Popcorn("Cheese Corn", 12.99);
+        Popcorn pecan = new Popcorn("Pecan Caramel Crisp", 10.99);
+        Popcorn cashew = new Popcorn("Cashew Caramel Crisp", 9.99);
+        Popcorn almond = new Popcorn("Almond Caramel Crisp", 11.99);
+        Popcorn plain = new Popcorn("Plain", 6.99);
+        Popcorn buttery = new Popcorn("Buttery", 8.99);
+        Popcorn sweet = new Popcorn("Sweet", 7.99);
 
         Popcorn[] catalog = { garrett, caramel, cheese, pecan, cashew, almond, plain, buttery, sweet };
 
         Scanner scnr = new Scanner(System.in);
 
-        String stringBuffer;
+        String stringBuffer = "";
         String[][] table = new String[4][4];
 
-        ///// LOGIN
-
-        System.out.println(
-                "Welcome to Garrett's Vending Machine!");
-        while (!session && !auth) {
-            System.out.println("Press 1 to make purchase, press 0 to enter admin mode.");
-            intBuffer = scnr.nextInt();
-
-            switch (intBuffer) {
-                case 0:
-                    System.out.println("Please enter password.");
-                    stringBuffer = scnr.next(); // doesn't actually validate anything, for fun
-                    if (stringBuffer != null) {
-                        auth = true;
-                    } else {
-                        System.out.println("Bad password.");
-                    }
-                    session = true;
-                    break;
-
-                case 1:
-                    session = true;
-                    break;
-
-                default:
-                    System.out.println("Sorry.");
-                    break;
+        int x = 0;
+        int y = 0;
+        for (Popcorn item : catalog) {
+            stringBuffer = item.name;
+            stringBuffer = stringBuffer + " $" + item.cost;
+            table[x][y] = stringBuffer;
+            if (y < 3) {
+                y++;
+            } else {
+                y = 0;
+                x++;
             }
 
         }
 
+        for (String[] row : table)
+            for (String column : row) {
+                System.out.println(column);
+
+            }
+        ///// LOGIN
+        /*
+         * System.out.println(
+         * "Welcome to Garrett's Vending Machine!");
+         * while (!session && !auth) {
+         * System.out.println("Press 1 to make purchase, press 0 to enter admin mode.");
+         * intBuffer = scnr.nextInt();
+         * 
+         * switch (intBuffer) {
+         * case 0:
+         * System.out.println("Please enter password.");
+         * stringBuffer = scnr.next(); // doesn't actually validate anything, for fun
+         * if (stringBuffer != null) {
+         * auth = true;
+         * } else {
+         * System.out.println("Bad password.");
+         * }
+         * session = true;
+         * break;
+         * 
+         * case 1:
+         * session = true;
+         * break;
+         * 
+         * default:
+         * System.out.println("Sorry.");
+         * break;
+         * }
+         * 
+         * }
+         */
         ///// BUYING SESSION
 
         scnr.close();
