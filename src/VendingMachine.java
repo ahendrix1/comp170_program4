@@ -81,7 +81,7 @@ public class VendingMachine {
 
         for (Popcorn item : catalog) {
             stringBuffer = item.name;
-            stringBuffer = stringBuffer + " $" + item.cost;
+            stringBuffer = "|" + stringBuffer + " $" + item.cost + "(" + item.stock + ")";
             table[x][y] = stringBuffer;
             if (y < 2) {
                 y++;
@@ -92,11 +92,13 @@ public class VendingMachine {
 
         }
 
-        for (String[] row : table)
+        for (String[] row : table) {
             for (String column : row) {
-                System.out.println(column);
+                System.out.print("%15s" column);
 
             }
+            System.out.print("|\n");
+        }
 
         ///// LOGIN
         /*
