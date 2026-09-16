@@ -49,10 +49,10 @@ import java.util.Scanner; //Import the Scanner Class
 
 public class VendingMachine {
     public static void main(String[] args) throws Exception {
-        int itemTotal;
-        int intBuffer;
+        int itemTotal = 0;
+        int x, y;
 
-        float costTotal;
+        double costTotal = 0;
 
         boolean auth = false;
         boolean session = false;
@@ -70,6 +70,8 @@ public class VendingMachine {
         Popcorn[][] catalog = { { garrett, caramel, cheese }, { pecan, cashew, almond }, { plain, buttery, sweet } };
 
         Scanner scnr = new Scanner(System.in);
+
+        int intBuffer;
 
         ///// LOGIN
         /*
@@ -103,24 +105,54 @@ public class VendingMachine {
          * }
          */
         ///// BUYING SESSION
-        session = true;
+        session = true; // remove later
+
         while (session) {
+
             // Printing initial welcome
+            intBuffer = 1;
+
             System.out.printf("| %-4s| %-31s| %-31s| %-31s|%n", "Row", "Column 1", "Column 2", "Column 3");
             System.out.println(
                     "----------------------------------------------------------------------------------------------------------");
-
-            intBuffer = 1;
-
             for (Popcorn[] row : catalog) {
                 System.out.printf("| %-4s", intBuffer);
                 for (Popcorn column : row) {
-                    System.out.printf("| %-21s %5.2f (%-1d)", column.name, column.cost, column.stock);
+                    System.out.printf("| %-21s %5.2f (%-1d!)", column.name, column.cost, column.stock);
                 }
                 System.out.print("|\n");
                 intBuffer++;
             }
-            session = false;
+
+            // Choosing item
+            System.out.println("Please type the row of the item you would like to select, or 0 if you are done.");
+            x = scnr.nextInt();
+
+            if (x == 0) {
+                session = false;
+                break; // this is the exit statement for the loop.
+            }
+            System.out.println("Please type the column of the item you would like to select.");
+            y = scnr.nextInt();
+
+            if (x > catalog.length || y > catalog[x].length) {
+                System.out.println("Bad choice, pick again.");
+            }
+
+            if (auth) {
+                System.out.println("Would you like to (1) purchase or (2) restock this item?");
+                intBuffer = scnr.nextInt();
+                if (intBuffer == 1) {
+                } else {
+                    costTotal = costTotal + catalog[x][y].Restock();
+                }
+
+            }
+
+            x = 0;
+            y = 0;
+            intBuffer = 0;
+            session = false; // remove later
         }
         scnr.close();
 
@@ -140,12 +172,15 @@ class Popcorn {
 
     }
 
-    public void Purchase(int amount) {
-        this.stock = this.stock - amount;
+    public double Purchase() {
+        this.stock = this.stock - 1;
+        return this.cost;
     }
 
-    public void Restock() {
+    public double Restock() {
         this.stock = 5;
+        return (this.cost / 2);
+
     }
 
 }
