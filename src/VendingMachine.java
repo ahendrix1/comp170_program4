@@ -105,7 +105,8 @@ public class VendingMachine {
          * }
          */
         ///// BUYING SESSION
-        session = true; // remove later
+        //
+        session = true; // TODO: remove later
         auth = true;
 
         while (session) {
@@ -139,37 +140,48 @@ public class VendingMachine {
             if (x > catalog.length || y > catalog[x].length) {
                 System.out.println("Bad choice, pick again.");
             } else {
-                System.out.println("Selected: " + catalog[x][y].name + "|" + catalog[x][y].cost);
+                costTotal = costTotal + Purchase(catalog[x][y]);
+                itemTotal++;
             }
 
-            /*
-             * if (auth) { // will prob delete
-             * if (catalog[x][y].stock <= 3) {
-             * System.out.println("You are running low on this item.");
-             * }
-             * 
-             * System.out.println("Would you like to (1) purchase or (2) restock this item?"
-             * );
-             * intBuffer = scnr.nextInt();
-             * if (intBuffer == 1) {
-             * costTotal = costTotal + catalog[x][y].Purchase();
-             * itemTotal++;
-             * } else {
-             * costTotal = costTotal + catalog[x][y].Restock();
-             * }
-             * 
-             * } else {
-             * costTotal = costTotal + catalog[x][y].Purchase();
-             * itemTotal++;
-             * }
-             */
+        }
 
+        System.out.println("Summary of items purchased\n*****************************\n" + "You purchased " + itemTotal
+                + " for $" + costTotal);
+        if (auth) {
+            System.out.println("Restocked: ");
+            costTotal = Restock(catalog);
+            System.out.println("Total: " + costTotal);
         }
 
         scnr.close();
 
     }
 
+    static double Restock(Popcorn[][] catalog) {
+        double restockCost = 0;
+        for (Popcorn[] row : catalog) {
+            for (Popcorn column : row) {
+                if (column.stock <= 3) {
+                    restockCost = restockCost + (5 - column.stock) * (column.cost / 2);
+                    System.out.printf("|%-21s|$%5.2f|%n", column.name, restockCost);
+                    column.stock = 5;
+
+                }
+
+            }
+        }
+        return restockCost;
+
+    }
+
+    static double Purchase(Popcorn selection) {
+        System.out.printf("Purchased: %-21s|$%6.2f|%n", selection.name, selection.cost);
+        selection.stock--;
+        return selection.cost;
+    }
+
+    // TODO: login refactor
 }
 
 class Popcorn {
@@ -180,19 +192,7 @@ class Popcorn {
     public Popcorn(String name, double cost) {
         this.name = name;
         this.cost = cost;
-        this.stock = 5;
-
-    }
-
-    public double Purchase() {
-        this.stock = this.stock - 1;
-        return this.cost;
-    }
-
-    public double Restock() {
-        int bought = 5 - this.stock;
-
-        return ((this.cost / 2) * bought);
+        this.stock = 2;
 
     }
 
