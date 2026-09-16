@@ -106,6 +106,7 @@ public class VendingMachine {
          */
         ///// BUYING SESSION
         session = true; // remove later
+        auth = true;
 
         while (session) {
 
@@ -118,7 +119,7 @@ public class VendingMachine {
             for (Popcorn[] row : catalog) {
                 System.out.printf("| %-4s", intBuffer);
                 for (Popcorn column : row) {
-                    System.out.printf("| %-21s %5.2f (%-1d!)", column.name, column.cost, column.stock);
+                    System.out.printf("| %-21s %5.2f (%-1d)", column.name, column.cost, column.stock);
                 }
                 System.out.print("|\n");
                 intBuffer++;
@@ -126,34 +127,45 @@ public class VendingMachine {
 
             // Choosing item
             System.out.println("Please type the row of the item you would like to select, or 0 if you are done.");
-            x = scnr.nextInt();
+            x = scnr.nextInt() - 1;
 
-            if (x == 0) {
+            if (x == -1) {
                 session = false;
                 break; // this is the exit statement for the loop.
             }
             System.out.println("Please type the column of the item you would like to select.");
-            y = scnr.nextInt();
+            y = scnr.nextInt() - 1;
 
             if (x > catalog.length || y > catalog[x].length) {
                 System.out.println("Bad choice, pick again.");
+            } else {
+                System.out.println("Selected: " + catalog[x][y].name + "|" + catalog[x][y].cost);
             }
 
-            if (auth) {
-                System.out.println("Would you like to (1) purchase or (2) restock this item?");
-                intBuffer = scnr.nextInt();
-                if (intBuffer == 1) {
-                } else {
-                    costTotal = costTotal + catalog[x][y].Restock();
-                }
+            /*
+             * if (auth) { // will prob delete
+             * if (catalog[x][y].stock <= 3) {
+             * System.out.println("You are running low on this item.");
+             * }
+             * 
+             * System.out.println("Would you like to (1) purchase or (2) restock this item?"
+             * );
+             * intBuffer = scnr.nextInt();
+             * if (intBuffer == 1) {
+             * costTotal = costTotal + catalog[x][y].Purchase();
+             * itemTotal++;
+             * } else {
+             * costTotal = costTotal + catalog[x][y].Restock();
+             * }
+             * 
+             * } else {
+             * costTotal = costTotal + catalog[x][y].Purchase();
+             * itemTotal++;
+             * }
+             */
 
-            }
-
-            x = 0;
-            y = 0;
-            intBuffer = 0;
-            session = false; // remove later
         }
+
         scnr.close();
 
     }
@@ -178,8 +190,9 @@ class Popcorn {
     }
 
     public double Restock() {
-        this.stock = 5;
-        return (this.cost / 2);
+        int bought = 5 - this.stock;
+
+        return ((this.cost / 2) * bought);
 
     }
 
