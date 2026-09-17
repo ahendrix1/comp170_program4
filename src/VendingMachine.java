@@ -100,8 +100,6 @@ public class VendingMachine {
         }
 
         ///// BUYING SESSION
-        auth = true;
-
         while (session) {
 
             // Printing initial welcome
@@ -127,10 +125,10 @@ public class VendingMachine {
                 session = false;
                 break; // this is the exit statement for the loop.
             }
-            System.out.println("Please type the column of the item you would like to select.");
+            System.out.println("\nPlease type the column of the item you would like to select.");
             y = scnr.nextInt() - 1;
 
-            if (x > catalog.length || y > catalog[x].length) {
+            if (x > catalog.length || y > catalog[x].length || catalog[x][y].stock == 0) {
                 System.out.println("Bad choice, pick again.");
             } else {
                 costTotal = costTotal + Purchase(catalog[x][y]);
@@ -139,12 +137,12 @@ public class VendingMachine {
 
         }
 
-        System.out.println("Summary of items purchased\n*****************************\n" + "You purchased " + itemTotal
-                + " for $" + costTotal);
+        System.out
+                .println("\nSummary of items purchased\n*****************************\n" + "You purchased " + itemTotal
+                        + " items for $" + costTotal);
         if (auth) {
-            System.out.println("Restocked: ");
-            costTotal = Restock(catalog);
-            System.out.println("Total: " + costTotal);
+            System.out.println("|Restocked: ");
+            System.out.printf("|Restock Total:        $%5.2f%n", Restock(catalog));
         }
 
         scnr.close();
@@ -169,7 +167,7 @@ public class VendingMachine {
     }
 
     static double Purchase(Popcorn selection) {
-        System.out.printf("Purchased: %-21s|$%6.2f|%n", selection.name, selection.cost);
+        System.out.printf("Purchased: %-21s|$%5.2f|%n", selection.name, selection.cost);
         selection.stock--;
         return selection.cost;
     }
@@ -184,7 +182,7 @@ class Popcorn {
     public Popcorn(String name, double cost) {
         this.name = name;
         this.cost = cost;
-        this.stock = 2;
+        this.stock = 5;
 
     }
 
