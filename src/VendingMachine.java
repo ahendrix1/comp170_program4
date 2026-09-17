@@ -74,8 +74,8 @@ public class VendingMachine {
         int intBuffer;
 
         ///// LOGIN
-        System.out.println(
-                "Welcome to Garrett's Vending Machine!");
+        System.out.println("Welcome to Garrett's Vending Machine!");
+
         while (!session && !auth) {
             System.out.println("Press 1 to make purchase, press 0 to enter admin mode.");
             intBuffer = scnr.nextInt();
@@ -146,7 +146,6 @@ public class VendingMachine {
             costTotal = Restock(catalog);
             System.out.println("Total: " + costTotal);
         }
-        // TODO: call restock if authed
 
         scnr.close();
 
