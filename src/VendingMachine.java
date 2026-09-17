@@ -74,39 +74,32 @@ public class VendingMachine {
         int intBuffer;
 
         ///// LOGIN
-        /*
-         * System.out.println(
-         * "Welcome to Garrett's Vending Machine!");
-         * while (!session && !auth) {
-         * System.out.println("Press 1 to make purchase, press 0 to enter admin mode.");
-         * intBuffer = scnr.nextInt();
-         * 
-         * switch (intBuffer) {
-         * case 0:
-         * System.out.println("Please enter password.");
-         * stringBuffer = scnr.next(); // doesn't actually validate anything, for fun
-         * if (stringBuffer != null) {
-         * auth = true;
-         * } else {
-         * System.out.println("Bad password.");
-         * }
-         * session = true;
-         * break;
-         * 
-         * case 1:
-         * session = true;
-         * break;
-         * 
-         * default:
-         * System.out.println("Sorry.");
-         * break;
-         * }
-         * 
-         * }
-         */
+        System.out.println(
+                "Welcome to Garrett's Vending Machine!");
+        while (!session && !auth) {
+            System.out.println("Press 1 to make purchase, press 0 to enter admin mode.");
+            intBuffer = scnr.nextInt();
+
+            switch (intBuffer) {
+                case 0:
+                    System.out.println("Please enter password.");
+                    scnr.next(); // doesn't actually validate anything, for fun
+                    auth = true;
+                    session = true;
+                    break;
+
+                case 1:
+                    session = true;
+                    break;
+
+                default:
+                    System.out.println("Sorry.");
+                    break;
+            }
+
+        }
+
         ///// BUYING SESSION
-        //
-        session = true; // TODO: remove later
         auth = true;
 
         while (session) {
@@ -153,6 +146,7 @@ public class VendingMachine {
             costTotal = Restock(catalog);
             System.out.println("Total: " + costTotal);
         }
+        // TODO: call restock if authed
 
         scnr.close();
 
@@ -181,7 +175,6 @@ public class VendingMachine {
         return selection.cost;
     }
 
-    // TODO: login refactor
 }
 
 class Popcorn {
