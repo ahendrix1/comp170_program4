@@ -32,19 +32,6 @@ The .gif below show three iterations of running the program
 
  */
 
-/*
-* PLAN: each popcorn is a obj. name, cost, stock 3tuple. multidimensional array
-* of
-* row/col indicies. similar architecture to last assignment (session while
-* loop, check for if
-* admin session).
-* popcorn class with newCorn method, purchase method, restock method,
-*
-*
-* Plan for table: String[][], x,y. fill static slots, then add popcorn. box
-* drawing seperate
-*/
-
 import java.util.Scanner; //Import the Scanner Class
 
 public class VendingMachine {
@@ -57,6 +44,7 @@ public class VendingMachine {
         boolean auth = false;
         boolean session = false;
 
+        // Popcorn = {string name, double price, int stock = 5}
         Popcorn garrett = new Popcorn("Garrett Mix", 14.99);
         Popcorn caramel = new Popcorn("Caramel Crisp", 16.99);
         Popcorn cheese = new Popcorn("Cheese Corn", 12.99);
@@ -83,7 +71,7 @@ public class VendingMachine {
             switch (intBuffer) {
                 case 0:
                     System.out.println("Please enter password.");
-                    scnr.next(); // doesn't actually validate anything, for fun
+                    scnr.next(); // doesn't actually validate anything, just for fun
                     auth = true;
                     session = true;
                     break;
@@ -117,22 +105,23 @@ public class VendingMachine {
                 intBuffer++;
             }
 
-            // Choosing item
-            System.out.println("Please type the row of the item you would like to select, or 0 if you are done.");
-            x = scnr.nextInt() - 1;
+            // Choosing item based on x,y coordinate in array
+            System.out.println("\nPlease type the row of the item you would like to select, or 0 if you are done.");
+            x = scnr.nextInt() - 1; // accounts for 0 index
 
             if (x == -1) {
                 session = false;
                 break; // this is the exit statement for the loop.
             }
-            System.out.println("\nPlease type the column of the item you would like to select.");
+
+            System.out.println("Please type the column of the item you would like to select.");
             y = scnr.nextInt() - 1;
 
-            if (x > catalog.length || y > catalog[x].length || catalog[x][y].stock == 0) {
-                System.out.println("Bad choice, pick again.");
+            if (x >= catalog.length || y >= catalog[x].length || catalog[x][y].stock == 0) {
+                System.out.println("Bad choice, pick again."); // to prevent access outside array boundaries
             } else {
-                costTotal = costTotal + Purchase(catalog[x][y]);
-                itemTotal++;
+                costTotal = costTotal + Purchase(catalog[x][y]); // purchase method: takes in Popcorn, returns double.
+                itemTotal++; // adjusts stock inside method
             }
 
         }
@@ -142,7 +131,10 @@ public class VendingMachine {
                         + " items for $" + costTotal);
         if (auth) {
             System.out.println("|Restocked: ");
-            System.out.printf("|Restock Total:        $%5.2f%n", Restock(catalog));
+            System.out.printf("|Restock Total:        $%5.2f%n", Restock(catalog)); // Restock method: takes in
+                                                                                    // Popcorn[][] outputs double. loops
+                                                                                    // and prints + resets stocks lower
+                                                                                    // <= 3
         }
 
         scnr.close();
